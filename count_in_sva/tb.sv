@@ -2,8 +2,10 @@ module tb;
     logic req, gnt;
     logic [2:0] num_grants;
     logic last;
-
+    logic clk, reset;
     reg req_r;
+
+    // sender logic has a flop that is cleared at reset.
     always@(posedge clk or posedge reset) begin
         if(reset)
             req_r <=  1'b0;
@@ -15,7 +17,8 @@ module tb;
              .last(last));
 
     property p_consec_grant;
-        $rose(req_r) |=> gnt[*2];
+        bit[2:0] cnt;
+        ($rose(req_r), cnt=num_grants) |=> gnt[*num_grants];
     endproperty 
 
     a_consec_grant: assert property(@(posedge clk) disable iff(reset) p_consec_grant);
