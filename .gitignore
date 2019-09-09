@@ -3,3 +3,4 @@ xrun.*
 *.dsn
 *.trn
 .simvision
+.nfs*
