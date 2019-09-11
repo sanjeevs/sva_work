@@ -18,7 +18,7 @@ module tb;
 
     property p_consec_grant;
         bit[2:0] cnt;
-        ($rose(req_r), cnt=num_grants) |=> gnt[*num_grants];
+        ($rose(req_r), cnt=num_grants) |=> gnt[*cnt];
     endproperty 
 
     a_consec_grant: assert property(@(posedge clk) disable iff(reset) p_consec_grant);
