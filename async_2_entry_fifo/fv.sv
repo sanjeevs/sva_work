@@ -5,7 +5,12 @@ module fv;
     write_intf_t write_intf(wclk, reset_w);
     read_intf_t read_intf(rclk, reset_r);
 
-    fifo1 dut(.write_intf(write_intf.mr), .read_intf(read_intf.mr));
+    //fifo1 dut(.write_intf(write_intf.mr), .read_intf(read_intf.mr));
+
+    fifo2 dut(.wclk(write_intf.mr.wclk), .wreset(write_intf.reset),
+              .push(write_intf.dut.push), .full(write_intf.dut.full),
+              .rclk(read_intf.rclk), .rreset(read_intf.reset),
+              .pop(read_intf.dut.pop), .empty(read_intf.dut.empty));
 
     // Push can only be asserted if fifo is not full.
     push_protocol: assume property(@(posedge wclk) disable iff(reset_w)
@@ -60,8 +65,11 @@ module fv;
             endcase
         end
     end 
-    a_overflow: assert property(@(posedge wclk) disable iff(reset_w)
-        cnt <= 'd2    
+    //a_overflow_fifo1: assert property(@(posedge wclk) disable iff(reset_w)
+    //    cnt <= 'd2    
+    //);
+    a_overflow_fifo2: assert property(@(posedge wclk) disable iff(reset_w)
+        cnt <= 'd1    
     );
     a_underflow: assert property(@(posedge wclk) disable iff(reset_w)
         cnt >= 'd0    

@@ -1,6 +1,6 @@
 interface write_intf_t(input wclk, input reset);
-    logic push;
-    logic full;
+    wire push;
+    wire full;
 
     clocking driver_cb @(posedge wclk);
         output push;
@@ -15,12 +15,13 @@ interface write_intf_t(input wclk, input reset);
     modport md(clocking driver_cb, input wclk, input reset);
  
     modport mr(clocking rcvr_cb, input wclk, input reset);
+    modport dut(input wclk, input reset, output full, input push);
 
 endinterface
 
 interface read_intf_t(input rclk, input reset);
-    logic pop;
-    logic empty;
+    wire pop;
+    wire empty;
 
     clocking driver_cb @(posedge rclk);
         output pop;
@@ -34,5 +35,6 @@ interface read_intf_t(input rclk, input reset);
 
     modport md(clocking driver_cb, input rclk, input reset); 
     modport mr(clocking rcvr_cb, input rclk, input reset); 
+    modport dut(input rclk, input reset, output empty, input pop);
 
 endinterface

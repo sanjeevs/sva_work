@@ -9,7 +9,14 @@ module tb;
     write_intf_t write_intf(wclk, reset_w);
     read_intf_t read_intf(rclk, reset_r);
 
-    fifo1 dut(.write_intf(write_intf.mr), .read_intf(read_intf.mr));
+//    fifo1 dut(.write_intf(write_intf.mr), .read_intf(read_intf.mr));
+
+    fifo2 dut(.wclk(write_intf.mr.wclk), .wreset(write_intf.reset),
+              .push(write_intf.dut.push), .full(write_intf.dut.full),
+              .rclk(read_intf.rclk), .rreset(read_intf.reset),
+              .pop(read_intf.dut.pop), .empty(read_intf.dut.empty));
+
+
 
     initial begin
         $display(">>>Asserting write reset");
