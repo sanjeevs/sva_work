@@ -67,9 +67,6 @@ module fv;
     //a_overflow_fifo1: assert property(@(posedge wclk) disable iff(reset_w)
     //    cnt <= 'd2    
     //);
-    a_overflow_fifo2: assert property(@(posedge wclk) disable iff(reset_w)
-        cnt <= 'd1    
-    );
     a_underflow: assert property(@(posedge wclk) disable iff(reset_w)
         cnt >= 'd0    
     );
