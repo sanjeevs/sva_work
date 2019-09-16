@@ -27,3 +27,12 @@ Another classic is that request must be asserted till grant is asserted.
 
 ## intersect
 Errata in Ashok Mehta book on page 136.
+
+## async_2_fifo
+There are 2 versions
+1. A conventional 2 entry async fifo (fifo1.sv) using grey codes. I am getting a liveness error from JG but not sure.
+
+![Waveform](https://github.com/sanjeevs/sva_work/blob/master/async_2_entry_fifo/Screen%20Shot%202019-09-16%20at%207.23.51%20AM.png)
+
+2. A more optimum fifo with a single depth but less logic and so better timing. (fifo2.sv)
+
